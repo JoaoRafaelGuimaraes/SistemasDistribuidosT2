@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="{{ refresh }}">
+    <title>Kanban Web - Simulação</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        header { margin-bottom: 20px; }
+        h1 { margin: 0; font-size: 24px; }
+        .timestamp { font-size: 16px; color: #555; }
+        .section { margin-bottom: 30px; }
+        .grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .card { width: 100px; padding: 10px; border-radius: 4px;
+                color: white; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .green  { background-color: #4CAF50; }
+        .yellow { background-color: #FFC107; color: #333; }
+        .red    { background-color: #F44336; }
+        ul.log-list { list-style: none; padding: 0; max-height: 200px; overflow-y: auto; }
+        ul.log-list li { margin: 4px 0; font-size: 14px; background: #fff; padding: 6px; border-radius: 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dashboard da Simulação</h1>
+    </header>
+
+    <div class="section">
+        <h2>Produtos Acabados</h2>
+        <div class="grid">
+            {% for p in products %}
+            <div class="card {{ p.color }}">
+                <strong>{{ p.name }}</strong><br>
+                {{ p.count }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Peças no Almoxarifado</h2>
+        <div class="grid">
+            {% for pt in parts %}
+            <div class="card {{ pt.color }}">
+                <strong>{{ pt.name }}</strong><br>
+                {{ pt.count }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Requisições de Reabastecimento</h2>
+        <ul class="log-list">
+            {% for rlog in restocks %}
+                <li>{{ rlog }}</li>
+            {% else %}
+                <li>Nenhuma requisição registrada</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Consumo de Produtos (Clientes)</h2>
+        <ul class="log-list">
+            {% for clog in consumptions %}
+                <li>{{ clog }}</li>
+            {% else %}
+                <li>Nenhum consumo registrado</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
